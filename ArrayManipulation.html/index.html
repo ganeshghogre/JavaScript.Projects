@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array</title>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+<script>
+        var cities = [ "Delhi", "Hyd", "Mumbai"];
+        function LoadCities(){
+            document.getElementById("lstCities").innerHTML = "";
+            for (var city of cities){
+                var option = document.createElement("option");
+                option.text = city;
+                option.value = city;
+                document.getElementById("lstCities").appendChild(option);
+            }
+            document.getElementById("lblCount").innerHTML = `Total No of Cities : ${cities.length}`
+        }
+        function bodyload(){
+            LoadCities();
+        }
+        function AddClick(){
+            var cityName = document.getElementById("txtCity").value;
+            if(cities.indexOf(cityName)==-1){
+                cities.push(cityName);
+            alert(`${cityName} added to list`);
+            document.getElementById("txtCity").value = "";
+             cities.sort();
+            LoadCities();
+            }
+            else{
+                alert(`${cityName} Exists`);
+            }
+        }
+        function RemoveClick(){
+            var selectedCityName = document.getElementById("lstCities").value;
+            var selectedIndex = cities.indexOf(selectedCityName);
+           var flag = confirm(` Delete ${selectedCityName}\nAre you sure want to delete?`)
+           if (flag==true){
+            cities.splice(selectedIndex,1);
+            LoadCities();
+        }
+           }
+           function ClearClick(){
+            cities.length = 0;
+            LoadCities();
+           }
+           function SortAsc(){
+            cities.sort();
+            LoadCities();
+           }
+           function SortDsc(){
+            cities.sort();
+            cities.reverse();
+            LoadCities();
+           }
+    </script>
+</head>
+<body class="container-fluid"  onload="bodyload()">
+    <h2>Array Manipulations</h2>
+    <div class="mt-3 mb-3 w-25">
+        <div class="input-group">
+            <span class="input-group-text ">New City :</span>
+            <input type="text" id="txtCity" class="form-control">
+            <button  onclick="AddClick()"  class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </div>
+    <div class="w-25">
+        <label class="form-label">Your Cities</label>
+        <div>
+            <div class="mt-2 mb-2">
+                <button class="btn btn-primary" onclick="SortAsc()">
+                    <span class="bi bi-sort-alpha-down"
+                </button>
+                <button class="btn btn-primary" onclick="SortDsc()">
+                    <span class="bi  bi-sort-alpha-up"></span>
+                </button>
+            </div>
+            <select class="form-select" size="3"  multiple id="lstCities" ></select>
+            <label class="form-label" id="lblCount"></label>
+          </div>
+          <div class="mt-3">
+            <button class="btn btn-danger" onclick="RemoveClick()" > <span class="bi bi-trash-fill"></span> Remove City</button>
+            <button class=" btn btn-danger" onclick="ClearClick()"> Clear All</button>
+
+          </div>
+         </div>
+    
+    
+</body>
+</html>
