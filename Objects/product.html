@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function bodyload(){
+            fetch("../Objects/product,json")
+            .then(function(response){
+                return response.json();
+            })
+            .then(function(products){
+                for (var product of products){
+                    var tr = document.createElement("tr");
+                    var tdName = document.createElement("td")
+                    var tdPrice = document.createElement("td");
+                    var tdRating = document.createElement("td");
+
+                    tdName.innerHTML = product.Name;
+                    tdPrice.innerHTML = product.Price;
+                    tdRating.innerHTML = `${product.Rating.Rate} [${product.Rating.Count}]`;
+
+                    tr.appendChild(tdName);
+                    tr.appendChild(tdPrice);
+                    tr.appendChild(tdRating);
+                    
+
+                    document.querySelector("tbody").appendChild(tr);
+
+
+        
+                }
+
+            })
+        }
+    </script>
+</head>
+<body onload="bodyload()">
+   <table border="1" width="400">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+   </table> 
+</body>
+</html>
